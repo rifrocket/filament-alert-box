@@ -6,11 +6,10 @@ namespace RifRocket\FilamentAlertBox;
 
 /**
  * Alert Box Manager
- * 
+ *
  * Manages alerts in memory for FilamentPHP using render hooks system.
  * Provides a fluent API for creating and managing alerts across different page positions.
- * 
- * @package RifRocket\FilamentAlertBox
+ *
  * @author Mohammad Arif <mohammad.arif9999@gmail.com>
  */
 final class AlertBoxManager
@@ -60,11 +59,11 @@ final class AlertBoxManager
         }
 
         // Validate required config fields
-        if (!isset($config['type']) || !in_array($config['type'], ['info', 'success', 'warning', 'danger', 'error'])) {
+        if (! isset($config['type']) || ! in_array($config['type'], ['info', 'success', 'warning', 'danger', 'error'])) {
             throw new \InvalidArgumentException('Invalid alert type');
         }
 
-        if (!isset(self::$alerts[$position])) {
+        if (! isset(self::$alerts[$position])) {
             self::$alerts[$position] = [];
         }
 
@@ -96,7 +95,7 @@ final class AlertBoxManager
      */
     public static function getPositionsWithAlerts(): array
     {
-        return array_keys(array_filter(self::$alerts, fn($alerts) => !empty($alerts)));
+        return array_keys(array_filter(self::$alerts, fn ($alerts) => ! empty($alerts)));
     }
 
     /**
@@ -104,7 +103,7 @@ final class AlertBoxManager
      */
     public static function hasAlerts(string $position): bool
     {
-        return !empty(self::$alerts[$position]);
+        return ! empty(self::$alerts[$position]);
     }
 
     /**
@@ -136,7 +135,7 @@ final class AlertBoxManager
     }
 
     // Quick static methods for common patterns (backwards compatibility)
-    
+
     /**
      * Create a success alert
      */

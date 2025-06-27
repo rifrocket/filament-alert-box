@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace RifRocket\FilamentAlertBox;
 
-use Filament\View\PanelsRenderHook;
-use InvalidArgumentException;
 use Filament\Facades\Filament;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Config;
+use InvalidArgumentException;
 
 /**
  * Alert Builder
- * 
+ *
  * Provides a fluent API for building alerts with chainable methods.
  * Supports multiple layout types and positioning via Filament render hooks.
- * 
- * @package RifRocket\FilamentAlertBox
+ *
  * @author Mohammad Arif <mohammad.arif9999@gmail.com>
  */
 final class AlertBuilder
@@ -24,6 +23,7 @@ final class AlertBuilder
      * Alert configuration
      */
     private array $definedColors = [];
+
     private array $config = [
         'id' => '',
         'type' => 'info',
@@ -66,7 +66,7 @@ final class AlertBuilder
         } catch (\Exception $e) {
             $this->definedColors = [];
         }
-        
+
         $this->defineColors();
         $this->config['id'] = uniqid('alert_', true);
         $this->config['style_type'] = 1; // Default card style
@@ -86,6 +86,7 @@ final class AlertBuilder
         }
 
         $this->config['title'] = $title;
+
         return $this;
     }
 
@@ -95,6 +96,7 @@ final class AlertBuilder
     public function description(string $description): self
     {
         $this->config['description'] = $description;
+
         return $this;
     }
 
@@ -111,13 +113,14 @@ final class AlertBuilder
      */
     public function cardStyle(int $style): self
     {
-        if (!in_array($style, self::VALID_STYLES, true)) {
+        if (! in_array($style, self::VALID_STYLES, true)) {
             throw new InvalidArgumentException(
                 sprintf('Card style must be between 1 and 4, got %d', $style)
             );
         }
 
         $this->config['style_type'] = $style;
+
         return $this;
     }
 
@@ -127,6 +130,7 @@ final class AlertBuilder
     public function bannerStyle(): self
     {
         $this->config['style_type'] = 1;
+
         return $this;
     }
 
@@ -136,6 +140,7 @@ final class AlertBuilder
     public function cardWithBorder(): self
     {
         $this->config['style_type'] = 2;
+
         return $this;
     }
 
@@ -145,6 +150,7 @@ final class AlertBuilder
     public function modernCard(): self
     {
         $this->config['style_type'] = 3;
+
         return $this;
     }
 
@@ -154,6 +160,7 @@ final class AlertBuilder
     public function minimalistStyle(): self
     {
         $this->config['style_type'] = 4;
+
         return $this;
     }
 
@@ -167,6 +174,7 @@ final class AlertBuilder
         }
 
         $this->config['icon'] = $icon;
+
         return $this;
     }
 
@@ -178,6 +186,7 @@ final class AlertBuilder
         $this->config['icon'] = null;
         $this->config['noIcon'] = $state;
         $this->config['icon_color'] = null;
+
         return $this;
     }
 
@@ -187,6 +196,7 @@ final class AlertBuilder
     public function iconColor(string $color): self
     {
         $this->config['icon_color'] = $this->validateColor($color);
+
         return $this;
     }
 
@@ -196,6 +206,7 @@ final class AlertBuilder
     public function titleColor(string $color): self
     {
         $this->config['title_color'] = $this->validateColor($color);
+
         return $this;
     }
 
@@ -205,6 +216,7 @@ final class AlertBuilder
     public function descriptionColor(string $color): self
     {
         $this->config['description_color'] = $this->validateColor($color);
+
         return $this;
     }
 
@@ -231,12 +243,13 @@ final class AlertBuilder
     public function success(): self
     {
         $this->config['type'] = 'success';
-        if (!$this->config['icon']) {
+        if (! $this->config['icon']) {
             $this->config['icon'] = 'heroicon-o-check-circle';
         }
         $this->config['title_color'] = $this->config['title_color'] ?? ($this->definedColors['success']['title'] ?? '#047857');
         $this->config['description_color'] = $this->config['description_color'] ?? ($this->definedColors['success']['description'] ?? '#10b981');
         $this->config['icon_color'] = $this->config['icon_color'] ?? ($this->definedColors['success']['icon'] ?? '#10b981');
+
         return $this;
     }
 
@@ -246,12 +259,13 @@ final class AlertBuilder
     public function danger(): self
     {
         $this->config['type'] = 'danger';
-        if (!$this->config['icon']) {
+        if (! $this->config['icon']) {
             $this->config['icon'] = 'heroicon-o-x-circle';
         }
         $this->config['title_color'] = $this->config['title_color'] ?? ($this->definedColors['danger']['title'] ?? '#b91c1c');
         $this->config['description_color'] = $this->config['description_color'] ?? ($this->definedColors['danger']['description'] ?? '#ef4444');
         $this->config['icon_color'] = $this->config['icon_color'] ?? ($this->definedColors['danger']['icon'] ?? '#ef4444');
+
         return $this;
     }
 
@@ -269,12 +283,13 @@ final class AlertBuilder
     public function warning(): self
     {
         $this->config['type'] = 'warning';
-        if (!$this->config['icon']) {
+        if (! $this->config['icon']) {
             $this->config['icon'] = 'heroicon-o-exclamation-triangle';
         }
         $this->config['title_color'] = $this->config['title_color'] ?? ($this->definedColors['warning']['title'] ?? '#b45309');
         $this->config['description_color'] = $this->config['description_color'] ?? ($this->definedColors['warning']['description'] ?? '#f59e0b');
         $this->config['icon_color'] = $this->config['icon_color'] ?? ($this->definedColors['warning']['icon'] ?? '#f59e0b');
+
         return $this;
     }
 
@@ -284,12 +299,13 @@ final class AlertBuilder
     public function info(): self
     {
         $this->config['type'] = 'info';
-        if (!$this->config['icon']) {
+        if (! $this->config['icon']) {
             $this->config['icon'] = 'heroicon-o-information-circle';
         }
         $this->config['title_color'] = $this->config['title_color'] ?? ($this->definedColors['info']['title'] ?? '#1d4ed8');
         $this->config['description_color'] = $this->config['description_color'] ?? ($this->definedColors['info']['description'] ?? '#3b82f6');
         $this->config['icon_color'] = $this->config['icon_color'] ?? ($this->definedColors['info']['icon'] ?? '#3b82f6');
+
         return $this;
     }
 
@@ -299,6 +315,7 @@ final class AlertBuilder
     public function canBeClose(bool $closeable = true): self
     {
         $this->config['closeable'] = $closeable;
+
         return $this;
     }
 
@@ -314,6 +331,7 @@ final class AlertBuilder
         $this->config['auto_hide'] = true;
         $this->config['timeout'] = $seconds * 1000; // Convert to milliseconds
         $this->config['permanent'] = false;
+
         return $this;
     }
 
@@ -326,6 +344,7 @@ final class AlertBuilder
         if ($permanent) {
             $this->config['auto_hide'] = false;
         }
+
         return $this;
     }
 
@@ -335,6 +354,7 @@ final class AlertBuilder
     public function classes(string $classes): self
     {
         $this->config['classes'] = $classes;
+
         return $this;
     }
 
@@ -344,6 +364,7 @@ final class AlertBuilder
     public function style(string $style): self
     {
         $this->config['style'] = $style;
+
         return $this;
     }
 
@@ -353,6 +374,7 @@ final class AlertBuilder
     public function position(string $position): self
     {
         $this->position = $position;
+
         return $this;
     }
 
@@ -362,6 +384,7 @@ final class AlertBuilder
     public function renderHook(string $hook): self
     {
         $this->position = $hook;
+
         return $this;
     }
 
@@ -371,36 +394,42 @@ final class AlertBuilder
     public function pageHeaderAfter(): self
     {
         $this->position = PanelsRenderHook::PAGE_HEADER_WIDGETS_AFTER;
+
         return $this;
     }
 
     public function pageStart(): self
     {
         $this->position = PanelsRenderHook::PAGE_START;
+
         return $this;
     }
 
     public function sidebarNavEnd(): self
     {
         $this->position = PanelsRenderHook::SIDEBAR_NAV_END;
+
         return $this;
     }
 
     public function topBarStart(): self
     {
         $this->position = PanelsRenderHook::TOPBAR_START;
+
         return $this;
     }
 
     public function pageEnd(): self
     {
         $this->position = PanelsRenderHook::PAGE_END;
+
         return $this;
     }
 
     public function footer(): self
     {
         $this->position = PanelsRenderHook::FOOTER;
+
         return $this;
     }
 
@@ -428,7 +457,7 @@ final class AlertBuilder
 
     private function defineColors(): void
     {
-        $this->definedColors = Config::get('alert-box.colors');
+        $this->definedColors = Config::get('alert-box.colors', []);
     }
 
     /**

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Config;
 class AlertBoxPlugin implements Plugin
 {
     protected bool $enabled = true;
+
     public string $view = 'alert-box::layouts.unified-alert';
 
     public function getId(): string
@@ -19,7 +20,7 @@ class AlertBoxPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        if (!$this->enabled) {
+        if (! $this->enabled) {
             return;
         }
 
@@ -62,7 +63,7 @@ class AlertBoxPlugin implements Plugin
                         'position' => $hook, // Pass position to help determine layout type
                     ]);
                 },
-                
+
             );
         }
     }
@@ -73,6 +74,7 @@ class AlertBoxPlugin implements Plugin
     public function enabled(bool $enabled = true): static
     {
         $this->enabled = $enabled;
+
         return $this;
     }
 
@@ -81,7 +83,8 @@ class AlertBoxPlugin implements Plugin
      */
     public function disable(bool $disable = true): static
     {
-        $this->enabled = !$disable;
+        $this->enabled = ! $disable;
+
         return $this;
     }
 
@@ -90,7 +93,7 @@ class AlertBoxPlugin implements Plugin
      */
     public static function make(): static
     {
-        return new static();
+        return new static;
     }
 
     /**
@@ -99,9 +102,9 @@ class AlertBoxPlugin implements Plugin
     public function view(string $view): self
     {
         $this->view = $view;
+
         return $this;
     }
-
 
     /**
      * Define default colors for alert types
@@ -110,26 +113,27 @@ class AlertBoxPlugin implements Plugin
     {
         Config::set('alert-box.colors', $colors ?: [
             'success' => [
-                'title'       => '#047857',
+                'title' => '#047857',
                 'description' => '#10b981',
-                'icon'        => '#10b981',
+                'icon' => '#10b981',
             ],
             'danger' => [
-                'title'       => '#b91c1c',
+                'title' => '#b91c1c',
                 'description' => '#ef4444',
-                'icon'        => '#ef4444',
+                'icon' => '#ef4444',
             ],
             'warning' => [
-                'title'       => '#b45309',
+                'title' => '#b45309',
                 'description' => '#f59e0b',
-                'icon'        => '#f59e0b',
+                'icon' => '#f59e0b',
             ],
             'info' => [
-                'title'       => '#1d4ed8',
+                'title' => '#1d4ed8',
                 'description' => '#3b82f6',
-                'icon'        => '#3b82f6',
+                'icon' => '#3b82f6',
             ],
         ]);
+
         return $this;
     }
 }

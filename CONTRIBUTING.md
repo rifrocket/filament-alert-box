@@ -36,10 +36,16 @@ composer format
 
 1. Fork the repository
 2. Clone your fork locally
-3. Install dependencies:
+3. **Run the setup script** (recommended):
+   ```bash
+   ./setup.sh
+   ```
+   
+   Or manually install dependencies:
    ```bash
    composer install
    ```
+
 4. Create a feature branch:
    ```bash
    git checkout -b feature/your-feature-name
@@ -55,6 +61,14 @@ composer format
    ```
 8. Commit and push
 9. Create a Pull Request
+
+### PHP Version Compatibility
+
+This package supports:
+- **PHP 8.1** with **Laravel 10** 
+- **PHP 8.2+** with **Laravel 10 or 11**
+
+The `setup.sh` script automatically detects your PHP version and installs compatible dependencies.
 
 ## Reporting Issues
 

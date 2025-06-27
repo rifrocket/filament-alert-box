@@ -13,7 +13,7 @@ class AlertBoxServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'alert-box');  
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'alert-box');
         // No CSS assets needed - using Tailwind CSS utility classes only
     }
 }
