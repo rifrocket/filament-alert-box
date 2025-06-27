@@ -1,0 +1,49 @@
+# Dependencies
+/vendor/
+/node_modules/
+
+# IDE
+/.idea/
+/.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing
+.phpunit.cache/
+/coverage/
+coverage.xml
+coverage.clover
+
+# Build
+/build/
+/dist/
+
+# Environment
+.env
+.env.local
+.env.testing
+
+# Laravel specific
+/storage/logs/*.log
+/public/hot
+/public/storage
+
+# Composer
+composer.phar
+composer.lock
+
+# Cache
+.cache/
+
+# Temp files
+*.tmp
+*.temp
