@@ -1,4 +1,10 @@
-# Filament AlertBox Plugin
+<div class="filament-hidden">
+
+![Alert Box Plugin Banner](https://raw.githubusercontent.com/rifrocket/filament-alert-box/main/filament-alert-box.png)
+
+</div>
+
+# Alert Box
 
 A modern, customizable alert box plugin for FilamentPHP with render hooks support. Create beautiful alerts with a fluent, chainable API across 4 different card styles.
 
