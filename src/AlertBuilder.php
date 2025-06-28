@@ -217,8 +217,8 @@ final class AlertBuilder
     public function iconSize(string $size): self
     {
         $size = strtolower($size);
-        
-        if (!in_array($size, self::VALID_ICON_SIZES, true)) {
+
+        if (! in_array($size, self::VALID_ICON_SIZES, true)) {
             throw new InvalidArgumentException(
                 sprintf('Icon size must be one of: %s, got %s', implode(', ', self::VALID_ICON_SIZES), $size)
             );
@@ -235,6 +235,7 @@ final class AlertBuilder
     public function iconXS(): self
     {
         $this->config['icon_size'] = 'xs';
+
         return $this;
     }
 
@@ -244,6 +245,7 @@ final class AlertBuilder
     public function iconS(): self
     {
         $this->config['icon_size'] = 's';
+
         return $this;
     }
 
@@ -253,6 +255,7 @@ final class AlertBuilder
     public function iconM(): self
     {
         $this->config['icon_size'] = 'm';
+
         return $this;
     }
 
@@ -262,6 +265,7 @@ final class AlertBuilder
     public function iconLG(): self
     {
         $this->config['icon_size'] = 'lg';
+
         return $this;
     }
 
@@ -271,6 +275,7 @@ final class AlertBuilder
     public function iconXL(): self
     {
         $this->config['icon_size'] = 'xl';
+
         return $this;
     }
 

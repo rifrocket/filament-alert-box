@@ -5,6 +5,7 @@ A modern, customizable alert box plugin for FilamentPHP with render hooks suppor
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rifrocket/filament-alert-box.svg?style=flat-square)](https://packagist.org/packages/rifrocket/filament-alert-box)
 [![Total Downloads](https://img.shields.io/packagist/dt/rifrocket/filament-alert-box.svg?style=flat-square)](https://packagist.org/packages/rifrocket/filament-alert-box)
 
+
 ## Features
 
 - 🎨 **4 Beautiful Card Styles** - Banner, Card with Border, Modern Card, and Minimalist
