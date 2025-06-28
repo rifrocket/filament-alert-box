@@ -1,4 +1,18 @@
-{{-- Unified Alert Layout - Pure Tailwind CSS Card-based Alert System --}}
+{{-- 
+    Unified Alert Layout - Pure Tailwind CSS Card-based Alert System with Dark Mode Support
+    
+    Features:
+    - Full dark/light mode compatibility using Tailwind CSS dark: variants
+    - Automatic theme detection via Tailwind's dark mode classes
+    - FilamentPHP compatible color schemes
+    - Maintains all existing functionality while adding theme support
+    
+    Dark Mode Implementation:
+    - Uses Tailwind's dark: prefix for all color variants
+    - Provides appropriate contrast ratios for both themes
+    - Supports all alert types (success, warning, error, info) in both modes
+    - Close button hover states adapted for both themes
+--}}
 @if (!empty($alerts))
     @foreach ($alerts as $alert)
         @php
@@ -6,47 +20,95 @@
             $styleType = $alert['style_type'] ?? 1;
             $alertType = $alert['type'] ?? 'info';
 
-            // Set color scheme based on alert type
+            // Set color scheme based on alert type with dark mode support
             $colorScheme = match ($alertType) {
                 'success' => [
                     'bg' => 'green',
                     'text' => 'green',
                     'border' => 'green',
+                    'lightBg' => 'bg-green-50',
+                    'darkBg' => 'dark:bg-green-900/20',
+                    'lightText' => 'text-green-800',
+                    'darkText' => 'dark:text-green-200',
+                    'lightBorder' => 'border-green-200',
+                    'darkBorder' => 'dark:border-green-800',
+                    'lightIconBg' => 'bg-green-100',
+                    'darkIconBg' => 'dark:bg-green-800/50',
+                    'lightIcon' => 'text-green-500',
+                    'darkIcon' => 'dark:text-green-400',
+                    'lightDesc' => 'text-green-700',
+                    'darkDesc' => 'dark:text-green-300',
                 ],
                 'warning' => [
                     'bg' => 'yellow',
                     'text' => 'yellow',
                     'border' => 'yellow',
+                    'lightBg' => 'bg-yellow-50',
+                    'darkBg' => 'dark:bg-yellow-900/20',
+                    'lightText' => 'text-yellow-800',
+                    'darkText' => 'dark:text-yellow-200',
+                    'lightBorder' => 'border-yellow-200',
+                    'darkBorder' => 'dark:border-yellow-800',
+                    'lightIconBg' => 'bg-yellow-100',
+                    'darkIconBg' => 'dark:bg-yellow-800/50',
+                    'lightIcon' => 'text-yellow-500',
+                    'darkIcon' => 'dark:text-yellow-400',
+                    'lightDesc' => 'text-yellow-700',
+                    'darkDesc' => 'dark:text-yellow-300',
                 ],
                 'error', 'danger' => [
                     'bg' => 'red',
                     'text' => 'red',
                     'border' => 'red',
+                    'lightBg' => 'bg-red-50',
+                    'darkBg' => 'dark:bg-red-900/20',
+                    'lightText' => 'text-red-800',
+                    'darkText' => 'dark:text-red-200',
+                    'lightBorder' => 'border-red-200',
+                    'darkBorder' => 'dark:border-red-800',
+                    'lightIconBg' => 'bg-red-100',
+                    'darkIconBg' => 'dark:bg-red-800/50',
+                    'lightIcon' => 'text-red-500',
+                    'darkIcon' => 'dark:text-red-400',
+                    'lightDesc' => 'text-red-700',
+                    'darkDesc' => 'dark:text-red-300',
                 ],
                 default => [
                     'bg' => 'blue',
                     'text' => 'blue',
                     'border' => 'blue',
+                    'lightBg' => 'bg-blue-50',
+                    'darkBg' => 'dark:bg-blue-900/20',
+                    'lightText' => 'text-blue-800',
+                    'darkText' => 'dark:text-blue-200',
+                    'lightBorder' => 'border-blue-200',
+                    'darkBorder' => 'dark:border-blue-800',
+                    'lightIconBg' => 'bg-blue-100',
+                    'darkIconBg' => 'dark:bg-blue-800/50',
+                    'lightIcon' => 'text-blue-500',
+                    'darkIcon' => 'dark:text-blue-400',
+                    'lightDesc' => 'text-blue-700',
+                    'darkDesc' => 'dark:text-blue-300',
                 ],
             };
 
-            // Set container classes based on style type
+            // Set container classes based on style type with dark mode support
             $containerClasses = match ($styleType) {
-                1 => "p-4 bg-{$colorScheme['bg']}-50 border-l-4 border-{$colorScheme['border']}-200", // Banner Style
-                2 => "p-4 bg-{$colorScheme['bg']}-50 border border-{$colorScheme['border']}-200 rounded-lg", // Card with Border
-                3 => "p-4 bg-white border border-{$colorScheme['border']}-200 rounded-lg", // Modern Card
-                default => "p-4 bg-{$colorScheme['bg']}-50 rounded-lg", // Minimalist
+                1 => "p-4 {$colorScheme['lightBg']} {$colorScheme['darkBg']} border-l-4 {$colorScheme['lightBorder']} {$colorScheme['darkBorder']}", // Banner Style
+                2 => "p-4 {$colorScheme['lightBg']} {$colorScheme['darkBg']} border {$colorScheme['lightBorder']} {$colorScheme['darkBorder']} rounded-lg", // Card with Border
+                3 => "p-4 bg-white dark:bg-gray-800 border {$colorScheme['lightBorder']} {$colorScheme['darkBorder']} rounded-lg", // Modern Card
+                default => "p-4 {$colorScheme['lightBg']} {$colorScheme['darkBg']} rounded-lg", // Minimalist
             };
 
-            $iconWrapperClasses = "flex-shrink-0 bg-{$colorScheme['bg']}-100 p-2 rounded-full";
-            $iconSizeClasses = "w-6 h-6 text-{$colorScheme['text']}-500";
+            $iconWrapperClasses = "flex-shrink-0 {$colorScheme['lightIconBg']} {$colorScheme['darkIconBg']} p-2 rounded-full";
+            $iconSizeClasses = "w-6 h-6 {$colorScheme['lightIcon']} {$colorScheme['darkIcon']}";
             $iconColorClasses = $alert['icon_color'] ? "color: {$alert['icon_color']}" : '';
             $titleSize = 'text-base';
-            $titleClasses = "{$titleSize} font-medium text-{$colorScheme['text']}-800";
+            $titleClasses = "{$titleSize} font-medium {$colorScheme['lightText']} {$colorScheme['darkText']}";
             $titleColorStyle = $alert['title_color'] ? "color: {$alert['title_color']}" : '';
-            $descriptionClasses = "text-sm text-{$colorScheme['text']}-700 opacity-90 mt-1";
-            $descriptionStyle = $alert['description_color'] ? "color: {$alert['description_color']}" : 'color: #64748b';
-            $buttonColorClasses = "text-{$colorScheme['text']}-500 hover:text-{$colorScheme['text']}-600";
+            $descriptionClasses = "text-sm {$colorScheme['lightDesc']} {$colorScheme['darkDesc']} opacity-90 mt-1";
+            $descriptionStyle = $alert['description_color'] ? "color: {$alert['description_color']}" : '';
+            $buttonColorClasses = "{$colorScheme['lightIcon']} {$colorScheme['darkIcon']} hover:{$colorScheme['lightText']} hover:{$colorScheme['darkText']}";
             $spacingClasses = $styleType === 4 ? 'space-x-2' : 'space-x-3';
             $buttonIconSize = $styleType === 4 ? 'w-4 h-4' : 'w-5 h-5';
         @endphp
@@ -103,7 +165,7 @@
                     @if ($alert['closeable'])
                         <div class="flex-shrink-0 ml-4">
                             <button type="button"
-                                class="transition-colors duration-200 p-1 rounded-md hover:bg-black hover:bg-opacity-5 {{ $buttonColorClasses }}"
+                                class="transition-colors duration-200 p-1 rounded-md hover:bg-black hover:bg-opacity-5 dark:hover:bg-white dark:hover:bg-opacity-10 {{ $buttonColorClasses }}"
                                 onclick="this.closest('[id^=alert-]').remove()" aria-label="Close alert">
                                 <x-filament::icon icon="heroicon-m-x-mark" class="{{ $buttonIconSize }}" />
                             </button>
