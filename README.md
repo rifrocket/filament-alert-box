@@ -12,7 +12,7 @@ A modern, customizable alert box plugin for FilamentPHP with render hooks suppor
 - 🎯 **FilamentPHP Render Hooks** - Perfectly integrated with Filament's architecture
 - 💾 **In-Memory Storage** - No database or session dependencies
 - 🎭 **Auto-Hide & Permanent** - Configure timeout or make alerts persistent
-- 🎪 **Customizable Icons & Colors** - Full control over appearance
+- 🎪 **Customizable Icons & Colors** - Full control over appearance with 5 icon sizes (xs, s, m, lg, xl)
 - ⚡ **Zero Configuration** - Works out of the box
 - 📱 **Responsive Design** - Works on all screen sizes
 
@@ -212,6 +212,12 @@ AlertBox::success('Data saved!')
 | `icon(string $icon)` | Set alert icon | `->icon('heroicon-o-check')` |
 | `noIcon(bool $state = true)` | Disable alert icon | `->noIcon()` |
 | `iconColor(string $color)` | Set icon color | `->iconColor('#10b981')` |
+| `iconSize(string $size)` | Set icon size (xs, s, m, lg, xl) | `->iconSize('lg')` |
+| `iconXS()` | Set extra small icon | `->iconXS()` |
+| `iconS()` | Set small icon | `->iconS()` |
+| `iconM()` | Set medium icon (default) | `->iconM()` |
+| `iconLG()` | Set large icon | `->iconLG()` |
+| `iconXL()` | Set extra large icon | `->iconXL()` |
 | `titleColor(string $color)` | Set title color | `->titleColor('#059669')` |
 | `descriptionColor(string $color)` | Set description color | `->descriptionColor('#6b7280')` |
 | `success()` | Set as success alert | `->success()` |
@@ -283,13 +289,35 @@ The alert styles use Tailwind CSS utility classes exclusively. You can customize
 
 ### Custom Icons
 
-Use any Heroicon or custom icon:
+Use any Heroicon or custom icon with different sizes:
 
 ```php
 AlertBox::make('Custom Icon')
     ->icon('heroicon-o-star')
+    ->iconSize('lg') // or ->iconLG()
     ->success()
     ->show();
+```
+
+### Icon Sizes
+
+Choose from 5 different icon sizes:
+
+```php
+// Extra Small (3x3)
+AlertBox::make('Minimal Alert')->iconXS()->info()->show();
+
+// Small (4x4)  
+AlertBox::make('Small Alert')->iconS()->warning()->show();
+
+// Medium (6x6) - Default
+AlertBox::make('Normal Alert')->iconM()->success()->show();
+
+// Large (8x8)
+AlertBox::make('Important Alert')->iconLG()->danger()->show();
+
+// Extra Large (10x10)
+AlertBox::make('Critical Alert')->iconXL()->error()->show();
 ```
 
 ## Requirements

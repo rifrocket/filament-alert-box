@@ -100,8 +100,19 @@
                 default => "p-4 {$colorScheme['lightBg']} {$colorScheme['darkBg']} rounded-lg", // Minimalist
             };
 
-            $iconWrapperClasses = "flex-shrink-0 {$colorScheme['lightIconBg']} {$colorScheme['darkIconBg']} p-2 rounded-full";
-            $iconSizeClasses = "w-6 h-6 {$colorScheme['lightIcon']} {$colorScheme['darkIcon']}";
+            // Icon size configuration
+            $iconSize = $alert['icon_size'] ?? 'm';
+            $iconDimensions = match ($iconSize) {
+                'xs' => ['icon' => 'w-3 h-3', 'wrapper' => 'p-1', 'button' => 'w-3 h-3'],
+                's' => ['icon' => 'w-4 h-4', 'wrapper' => 'p-1.5', 'button' => 'w-4 h-4'],
+                'm' => ['icon' => 'w-6 h-6', 'wrapper' => 'p-2', 'button' => 'w-5 h-5'],
+                'lg' => ['icon' => 'w-8 h-8', 'wrapper' => 'p-3', 'button' => 'w-6 h-6'],
+                'xl' => ['icon' => 'w-10 h-10', 'wrapper' => 'p-4', 'button' => 'w-7 h-7'],
+                default => ['icon' => 'w-6 h-6', 'wrapper' => 'p-2', 'button' => 'w-5 h-5'],
+            };
+
+            $iconWrapperClasses = "flex-shrink-0 {$colorScheme['lightIconBg']} {$colorScheme['darkIconBg']} {$iconDimensions['wrapper']} rounded-full";
+            $iconSizeClasses = "{$iconDimensions['icon']} {$colorScheme['lightIcon']} {$colorScheme['darkIcon']}";
             $iconColorClasses = $alert['icon_color'] ? "color: {$alert['icon_color']}" : '';
             $titleSize = 'text-base';
             $titleClasses = "{$titleSize} font-medium {$colorScheme['lightText']} {$colorScheme['darkText']}";
@@ -110,7 +121,7 @@
             $descriptionStyle = $alert['description_color'] ? "color: {$alert['description_color']}" : '';
             $buttonColorClasses = "{$colorScheme['lightIcon']} {$colorScheme['darkIcon']} hover:{$colorScheme['lightText']} hover:{$colorScheme['darkText']}";
             $spacingClasses = $styleType === 4 ? 'space-x-2' : 'space-x-3';
-            $buttonIconSize = $styleType === 4 ? 'w-4 h-4' : 'w-5 h-5';
+            $buttonIconSize = $iconDimensions['button'];
         @endphp
 
         {{-- Alert Card with explicit Tailwind classes --}}

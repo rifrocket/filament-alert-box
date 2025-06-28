@@ -14,6 +14,7 @@ use InvalidArgumentException;
  *
  * Provides a fluent API for building alerts with chainable methods.
  * Supports multiple layout types and positioning via Filament render hooks.
+ * Features customizable icon sizes: xs, s, m (default), lg, xl
  *
  * @author Mohammad Arif <mohammad.arif9999@gmail.com>
  */
@@ -37,6 +38,7 @@ final class AlertBuilder
         'noIcon' => false,
         'icon' => null,
         'icon_color' => null,
+        'icon_size' => 'm', // Default icon size
         'title_color' => null,
         'description_color' => null,
         'classes' => '',
@@ -57,6 +59,11 @@ final class AlertBuilder
      * Valid card styles (1-4)
      */
     private const VALID_STYLES = [1, 2, 3, 4];
+
+    /**
+     * Valid icon sizes
+     */
+    private const VALID_ICON_SIZES = ['xs', 's', 'm', 'lg', 'xl'];
 
     public function __construct(?string $title = null)
     {
@@ -186,6 +193,10 @@ final class AlertBuilder
         $this->config['icon'] = null;
         $this->config['noIcon'] = $state;
         $this->config['icon_color'] = null;
+        // Reset icon size to default when no icon
+        if ($state) {
+            $this->config['icon_size'] = 'm';
+        }
 
         return $this;
     }
@@ -197,6 +208,69 @@ final class AlertBuilder
     {
         $this->config['icon_color'] = $this->validateColor($color);
 
+        return $this;
+    }
+
+    /**
+     * Set icon size
+     */
+    public function iconSize(string $size): self
+    {
+        $size = strtolower($size);
+        
+        if (!in_array($size, self::VALID_ICON_SIZES, true)) {
+            throw new InvalidArgumentException(
+                sprintf('Icon size must be one of: %s, got %s', implode(', ', self::VALID_ICON_SIZES), $size)
+            );
+        }
+
+        $this->config['icon_size'] = $size;
+
+        return $this;
+    }
+
+    /**
+     * Set icon size to extra small
+     */
+    public function iconXS(): self
+    {
+        $this->config['icon_size'] = 'xs';
+        return $this;
+    }
+
+    /**
+     * Set icon size to small
+     */
+    public function iconS(): self
+    {
+        $this->config['icon_size'] = 's';
+        return $this;
+    }
+
+    /**
+     * Set icon size to medium (default)
+     */
+    public function iconM(): self
+    {
+        $this->config['icon_size'] = 'm';
+        return $this;
+    }
+
+    /**
+     * Set icon size to large
+     */
+    public function iconLG(): self
+    {
+        $this->config['icon_size'] = 'lg';
+        return $this;
+    }
+
+    /**
+     * Set icon size to extra large
+     */
+    public function iconXL(): self
+    {
+        $this->config['icon_size'] = 'xl';
         return $this;
     }
 
